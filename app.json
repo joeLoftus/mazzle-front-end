@@ -2,8 +2,8 @@
   "name": "great.releases",
   "displayName": "great.releases",
   "expo": {
-    "name": "great.releases",
-    "slug": "great.releases",
+    "name": "great-releases",
+    "slug": "great-releases",
     "version": "1.0.0",
     "platforms": [
       "ios",
