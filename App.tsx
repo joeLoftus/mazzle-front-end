@@ -1,6 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MockData from "./data/mockData.js";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Footer,
+  FooterTab,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+} from "native-base";
 
 const renderMovies = () => {
   return MockData.map((movie: any, index: number) => {
@@ -10,9 +23,30 @@ const renderMovies = () => {
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {renderMovies()}
-    </View>
+    <Container>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="menu" />
+          </Button>
+        </Left>
+        <Right>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+        </Right>
+      </Header>
+      <Content contentContainerStyle={styles.container}>
+        <View style={styles.container}>{renderMovies()}</View>
+      </Content>
+      <Footer>
+        <FooterTab>
+          <Button full>
+            <Text>Footer</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+    </Container>
   );
 }
 
