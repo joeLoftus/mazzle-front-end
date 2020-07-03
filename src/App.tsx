@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import MockData from "../data/mockData.js";
+import MockData from "./data/mockData.js";
 import {
   Container,
   Header,
@@ -15,15 +15,21 @@ import {
   Icon,
 } from "native-base";
 import BarChart from "./components/BarChart";
+import Colors from "./styles/colors";
 
 const renderMovies = () => {
   return MockData.map((movie: any, index: number) => {
     return (
-      <Text style={{ display: 'flex', alignSelf: "stretch", flexDirection: "row", justifyContent: 'space-between'}}>
-        <Text >{movie.title}</Text>
-        <Text style={{ marginLeft: 10}} >
-          {movie.vote_average}
-        </Text>
+      <Text
+        style={{
+          display: "flex",
+          alignSelf: "stretch",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{movie.title}</Text>
+        <Text style={{ marginLeft: 10 }}>{movie.vote_average}</Text>
       </Text>
     );
   });
@@ -32,28 +38,19 @@ const renderMovies = () => {
 export default function App() {
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="menu" />
-          </Button>
-        </Left>
+      <Header  style={styles.header}>
         <Right>
-          <Body>
-            <Title>Header</Title>
-          </Body>
+        <Button transparent>
+            <Icon name="settings" />
+          </Button>
         </Right>
       </Header>
       <Content contentContainerStyle={styles.container}>
-        <View style={styles.container}><BarChart /></View>
+        <View style={styles.container}>
+          <BarChart />
+        </View>
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button full>
-            <Text>Footer</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
+      <Footer style={styles.header} />
     </Container>
   );
 }
@@ -65,4 +62,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  header: { backgroundColor: Colors.primary },
 });
