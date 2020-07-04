@@ -5,7 +5,9 @@ import Colors from "../styles/colors";
 
 import { BarChart } from "react-native-chart-kit";
 
-const maxValues = 8;
+const maxValues = 3;
+const width = 320;
+const height = 240;
 
 const labels = mockData.slice(0, maxValues).map((entry, index) => {
   return entry.title;
@@ -17,8 +19,8 @@ const values = mockData.slice(0, maxValues).map((entry, index) => {
 
 function BarGraph() {
   return (
-    <View>
-      <Text style={styles.title}>Great Releases vs IMDb Ratings</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>IMDb Ratings for Historically Great Movies Currently in Theaters</Text>
       <BarChart
         data={{
           labels: labels,
@@ -28,33 +30,23 @@ function BarGraph() {
             },
           ],
         }}
-        width={Dimensions.get("window").width/2} // from react-native
-        height={220}
-        yAxisLabel=""
-        yAxisSuffix=""
-        yAxisInterval={1} // optional, defaults to 1
+        width={width} // from react-native
+        height={height}
+        fromZero
         chartConfig={{
-          backgroundColor: "#000",
           backgroundGradientFrom: Colors.secondary,
           backgroundGradientTo: Colors.secondary,
-          decimalPlaces: 1, // optional, defaults to 2dp
-          color: (opacity = 1) => Colors.primary,
-          labelColor: (opacity = 1) => Colors.text,
+          decimalPlaces: 1,
+          color: () => Colors.primary,
+          labelColor: () => Colors.text,
           style: {
             borderRadius: 16,
-          },
-          propsForDots: {
-            r: "0",
-            strokeWidth: "0",
-            stroke: "#ffa726",
           },
           propsForBackgroundLines: {
             strokeWidth: '0'
           }
         }}
-        bezier
         style={{
-          marginVertical: 8,
           borderRadius: 16,
         }}
       />
@@ -68,6 +60,10 @@ const styles = StyleSheet.create({
   title: {
     display: 'flex',
     justifyContent: "center",
-    marginBottom: 10
+    marginBottom: 10,
+    textAlign: 'center',
   },
+  container: {
+    maxWidth: width
+  }
 });

@@ -1,48 +1,28 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MockData from "./data/mockData.js";
+import { StyleSheet, View } from "react-native";
 import {
   Container,
   Header,
   Title,
   Content,
   Footer,
-  FooterTab,
-  Button,
   Left,
   Right,
-  Body,
-  Icon,
 } from "native-base";
 import BarChart from "./components/BarChart";
 import Colors from "./styles/colors";
-
-const renderMovies = () => {
-  return MockData.map((movie: any, index: number) => {
-    return (
-      <Text
-        style={{
-          display: "flex",
-          alignSelf: "stretch",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text>{movie.title}</Text>
-        <Text style={{ marginLeft: 10 }}>{movie.vote_average}</Text>
-      </Text>
-    );
-  });
-};
 
 export default function App() {
   return (
     <Container>
       <Header  style={styles.header}>
+        <Left>
+          <Title>Mazzle</Title>
+        </Left>
         <Right>
-        <Button transparent>
+        {/* <Button transparent>
             <Icon name="settings" />
-          </Button>
+          </Button> */}
         </Right>
       </Header>
       <Content contentContainerStyle={styles.container}>
