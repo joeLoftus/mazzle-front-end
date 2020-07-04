@@ -3,34 +3,31 @@ import { Text, View, Dimensions, StyleSheet } from "react-native";
 import mockData from "../data/mockData";
 import Colors from "../styles/colors";
 
-import { BarChart } from "react-native-chart-kit";
+import { StackedBarChart } from "react-native-chart-kit";
 
 const maxValues = 3;
 const width = 320;
 const height = 240;
 
-const labels = mockData.slice(0, maxValues).map((entry, index) => {
+const labels = mockData.slice(0, maxValues).map((entry) => {
   return entry.title;
 });
 
-const values = mockData.slice(0, maxValues).map((entry, index) => {
-  return entry.vote_average;
+const values = mockData.slice(0, maxValues).map((entry) => {
+  return [parseFloat(entry.vote_average)];
 });
 
 function BarGraph() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>IMDb Ratings for Historically Great Movies Currently in Theaters</Text>
-      <BarChart
+      <StackedBarChart
         data={{
           labels: labels,
-          datasets: [
-            {
               data: values,
-            },
-          ],
+              barColors: [Colors.tertiary]
         }}
-        width={width} // from react-native
+        width={width * 1.5}
         height={height}
         fromZero
         chartConfig={{
@@ -38,8 +35,9 @@ function BarGraph() {
           backgroundGradientTo: Colors.secondary,
           decimalPlaces: 1,
           color: () => Colors.primary,
-          labelColor: () => Colors.text,
+          labelColor: () => '#000',
           style: {
+            marginVertical: 8,
             borderRadius: 16,
           },
           propsForBackgroundLines: {
@@ -47,6 +45,7 @@ function BarGraph() {
           }
         }}
         style={{
+          marginVertical: 8,
           borderRadius: 16,
         }}
       />

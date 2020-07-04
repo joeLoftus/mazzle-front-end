@@ -15,12 +15,12 @@ import Colors from "./styles/colors";
 export default function App() {
   return (
     <Container>
-      <Header  style={styles.header}>
+      <Header style={styles.header}>
         <Left>
-          <Title>Mazzle</Title>
+          <Title style={styles.header}>Mazzle</Title>
         </Left>
         <Right>
-        {/* <Button transparent>
+          {/* <Button transparent>
             <Icon name="settings" />
           </Button> */}
         </Right>
@@ -38,9 +38,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.secondary,
     alignItems: "center",
     justifyContent: "center",
   },
-  header: { backgroundColor: Colors.primary },
+  header: {
+    backgroundColor: Colors.primary,
+    color: Colors.secondary,
+  },
 });
