@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   Container,
@@ -11,8 +11,31 @@ import {
 } from "native-base";
 import BarChart from "./components/BarChart";
 import Colors from "./styles/colors";
+import { dataUrl, englishDataUrl } from "./data/constants";
 
 export default function App() {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetch(dataUrl)
+      .then((res) => {
+        return res.json();
+      })
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        (error) => {
+          console.log(error);
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
+
   return (
     <Container>
       <Header style={styles.header}>
@@ -27,7 +50,7 @@ export default function App() {
       </Header>
       <Content contentContainerStyle={styles.container}>
         <View style={styles.container}>
-          <BarChart />
+          <BarChart data={items} />
         </View>
       </Content>
       <Footer style={styles.header} />
@@ -44,6 +67,5 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: Colors.primary,
-    color: Colors.secondary,
   },
 });
