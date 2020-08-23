@@ -8,19 +8,25 @@ import {
   Footer,
   Left,
   Right,
+  Button
 } from "native-base";
 import BarChart from "./components/BarChart";
 import Colors from "./styles/colors";
 import { dataUrl, englishDataUrl } from "./data/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [englishOnly, setEnglishOnly] = useState(false);
 
   useEffect(() => {
-    fetch(dataUrl)
+    console.log(englishOnly);
+    fetch(englishOnly ? englishDataUrl :dataUrl)
       .then((res) => {
+        console.log(res);
         return res.json();
       })
       .then(
@@ -34,18 +40,18 @@ export default function App() {
           setError(error);
         }
       );
-  }, []);
+  }, [englishOnly]);
 
   return (
     <Container>
       <Header style={styles.header}>
         <Left>
-          <Title style={styles.header}>Mazzle</Title>
+          <Title style={styles.title}>Mazzle</Title>
         </Left>
         <Right>
-          {/* <Button transparent>
-            <Icon name="settings" />
-          </Button> */}
+          <Button transparent onPress={() => setEnglishOnly(!englishOnly)} >
+            <FontAwesomeIcon icon={faLanguage} color={Colors.primary} />
+          </Button>
         </Right>
       </Header>
       <Content contentContainerStyle={styles.container}>
@@ -53,7 +59,7 @@ export default function App() {
           <BarChart data={items} />
         </View>
       </Content>
-      <Footer style={styles.header} />
+      <Footer style={styles.footer} />
     </Container>
   );
 }
@@ -66,6 +72,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    backgroundColor: Colors.primary,
+    borderBottomColor: Colors.gray,
+    backgroundColor: Colors.secondary,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    color: Colors.primary
   },
+  footer: {
+    borderTopColor: Colors.gray,
+    backgroundColor: Colors.secondary,
+    borderTopWidth: 1,
+    borderTopStyle: 'solid',
+    color: Colors.primary
+  },
+  title: {
+    color: Colors.primary
+  }
 });
