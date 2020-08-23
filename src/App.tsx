@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.gray,
     backgroundColor: Colors.secondary,
     borderBottomWidth: 1,
-    borderBottomStyle: 'solid',
+    borderStyle: 'solid',
     color: Colors.primary
   },
   footer: {
     borderTopColor: Colors.gray,
     backgroundColor: Colors.secondary,
     borderTopWidth: 1,
-    borderTopStyle: 'solid',
+    borderStyle: 'solid',
     color: Colors.primary
   },
   title: {
