@@ -1,2 +1,3 @@
-export const dataUrl = "http://localhost:8080/";
-export const englishDataUrl = "http://localhost:8080/english";
+export const dataUrl = "https://mazzle.herokuapp.com/";
+export const englishDataUrl = "https://mazzle.herokuapp.com/english";
+export const contactEmail = "mazzlesuport@gmail.com";

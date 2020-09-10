@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
     textAlign: "center",
+    fontWeight: 'bold'
   },
   container: {
     maxWidth: width,

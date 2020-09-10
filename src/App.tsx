@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import {
   Container,
   Header,
@@ -8,23 +8,24 @@ import {
   Footer,
   Left,
   Right,
-  Button
+  Button,
 } from "native-base";
 import BarChart from "./components/BarChart";
 import Colors from "./styles/colors";
-import { dataUrl, englishDataUrl } from "./data/constants";
+import { dataUrl, englishDataUrl, contactEmail } from "./data/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [englishOnly, setEnglishOnly] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
 
   useEffect(() => {
     console.log(englishOnly);
-    fetch(englishOnly ? englishDataUrl :dataUrl)
+    fetch(englishOnly ? englishDataUrl : dataUrl)
       .then((res) => {
         console.log(res);
         return res.json();
@@ -46,20 +47,38 @@ export default function App() {
     <Container>
       <Header style={styles.header}>
         <Left>
-          <Title style={styles.title}>Mazzle</Title>
+          <Title style={styles.title} onPress={() => setShowSupport(false)}>Mazzle</Title>
         </Left>
         <Right>
-          <Button transparent onPress={() => setEnglishOnly(!englishOnly)} >
-            <FontAwesomeIcon icon={faLanguage} color={Colors.primary} />
+          <Button transparent onPress={() => setEnglishOnly(!englishOnly)}>
+            <FontAwesomeIcon
+              icon={faLanguage}
+              size={20}
+              color={Colors.primary}
+            />
           </Button>
         </Right>
       </Header>
       <Content contentContainerStyle={styles.container}>
         <View style={styles.container}>
-          <BarChart data={items} />
+          {!showSupport && <BarChart data={items} />}
+          {showSupport && <Text style={styles.supportText} >Contact support at: {contactEmail}</Text>}
         </View>
       </Content>
-      <Footer style={styles.footer} />
+      <Footer style={styles.footer}>
+        <Left>
+          
+        </Left>
+        <Right>
+          <Button style={styles.footerRightButton} transparent onPress={() => setShowSupport(!showSupport)}>
+            <FontAwesomeIcon
+              icon={faInfoCircle}
+              size={20}
+              color={Colors.primary}
+            />
+          </Button>
+        </Right>
+      </Footer>
     </Container>
   );
 }
@@ -75,17 +94,23 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.gray,
     backgroundColor: Colors.secondary,
     borderBottomWidth: 1,
-    borderStyle: 'solid',
-    color: Colors.primary
+    borderStyle: "solid",
+    color: Colors.primary,
   },
   footer: {
     borderTopColor: Colors.gray,
     backgroundColor: Colors.secondary,
     borderTopWidth: 1,
-    borderStyle: 'solid',
-    color: Colors.primary
+    borderStyle: "solid",
+    color: Colors.primary,
+  },
+  footerRightButton: {
+    paddingRight: 15
   },
   title: {
-    color: Colors.primary
+    color: Colors.primary,
+  },
+  supportText: {
+    fontWeight: 'bold'
   }
 });
