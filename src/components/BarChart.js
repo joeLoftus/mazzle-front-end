@@ -10,7 +10,10 @@ const titleLength = 18;
 const width = 320;
 const height = 240;
 
-function BarGraph({ data }) {
+function BarGraph({
+  data,
+  title,
+}) {
   const [labels, setLabels] = useState([]);
   const [values, setValues] = useState([]);
 
@@ -38,9 +41,7 @@ function BarGraph({ data }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        IMDb Ratings for Historically Great Movies Currently in Theaters
-      </Text>
+      <Text style={styles.title}>{title}</Text>
       {data.length > 0 ? (
         <StackedBarChart
           data={{
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
     textAlign: "center",
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   container: {
     maxWidth: width,
