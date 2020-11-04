@@ -9,6 +9,7 @@ import {
   Left,
   Right,
   Button,
+  Root,
 } from "native-base";
 import BarChart from "./components/BarChart";
 import Colors from "./styles/colors";
@@ -19,6 +20,7 @@ import {
   graphTitle,
   graphTitleEnglishOnly,
 } from "./data/constants";
+import * as Font from "expo-font";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faLanguage, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,9 +28,9 @@ export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [englishOnly, setEnglishOnly] = useState(true);
+  const [englishOnly, setEnglishOnly] = useState(false);
   const [showSupport, setShowSupport] = useState(false);
-  const [bargraphTitle, setBargraphTitle] = useState(graphTitleEnglishOnly);
+  const [bargraphTitle, setBargraphTitle] = useState(graphTitle);
 
   useEffect(() => {
     englishOnly
@@ -50,6 +52,20 @@ export default function App() {
         }
       );
   }, [englishOnly]);
+
+  useEffect(() => {
+    (async () => {
+      await Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      });
+      setIsLoaded(true);
+    })();
+  }, []);
+
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <Container>
@@ -105,6 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondary,
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: "serif",
   },
   header: {
     borderBottomColor: Colors.gray,

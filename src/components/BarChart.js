@@ -30,7 +30,9 @@ function BarGraph({
 
       setValues(
         data.slice(0, maxValues).map((entry) => {
-          return [parseFloat(entry.vote_average)];
+          const voteAverage = parseFloat(entry.vote_average);
+          if (voteAverage === 10) return voteAverage;
+          return [voteAverage.toFixed(1)];
         })
       );
     } else {
